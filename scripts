@@ -1,0 +1,56 @@
+-- Loading Screen Script (Looping Animation)
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create ScreenGui
+local loadingGui = Instance.new("ScreenGui")
+loadingGui.Name = "LoadingScreen"
+loadingGui.IgnoreGuiInset = true
+loadingGui.Parent = playerGui
+
+-- Create background frame
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1, 0, 1, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BackgroundTransparency = 0.5
+frame.Parent = loadingGui
+
+-- Create loading text
+local loadingText = Instance.new("TextLabel")
+loadingText.Size = UDim2.new(0.4, 0, 0.1, 0)
+loadingText.Position = UDim2.new(0.3, 0, 0.45, 0)
+loadingText.BackgroundTransparency = 1
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingText.Font = Enum.Font.SourceSansBold
+loadingText.TextSize = 48
+loadingText.Text = "Loading"
+loadingText.Parent = frame
+
+-- Animation loop
+local running = true
+task.spawn(function()
+    local dots = ""
+    while running do
+        for i = 0, 3 do
+            if not running then break end
+            dots = string.rep(".", i)
+            loadingText.Text = "Loading" .. dots
+            task.wait(0.5)
+        end
+    end
+end)
+
+-- [[
+-- Your main code goes below this line.
+-- For example:
+-- loadstring(game:HttpGet("https://your-obfuscated-script-url"))()
+-- When your main code is done, remove the loading screen like this:
+-- running = false
+-- loadingGui:Destroy()
+--]]
+
+wait(5) -- Demo: simulate loading for 5 seconds
+
+-- Hide loading screen when done
+running = false
+loadingGui:Destroy()
